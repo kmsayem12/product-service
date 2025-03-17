@@ -10,10 +10,11 @@ import { ProductService } from './services/product.service';
 @Module({
   imports: [
     MongooseModule.forRoot(mongodbConfig.uri, {
-      ...mongodbConfig.options,
-      user: mongodbConfig.user,
-      pass: mongodbConfig.password,
-      dbName: mongodbConfig.dbName,
+      authSource: 'admin',
+      auth: {
+        username: mongodbConfig.user,
+        password: mongodbConfig.password,
+      },
     }),
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
   ],
